@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Copyright (c) 2016
+    zhangzhaolei@erobbing.com
+-->
+
+<resources>
+    <string name="app_name">屏幕录像</string>
+    <string name="action_settings">设置</string>
+
+    <string name="title_time">录像时间</string>
+    <string name="title_size">视频分辨率</string>
+    <string name="title_bitrate">视频比特率</string>
+    <string name="title_path">视频存储位置</string>
+    <string name="title_path_detail">SD卡</string>
+
+    <string name="drop_hint_time">默认180秒</string>
+    <string name="drop_hint_size">手机默认分辨率</string>
+    <string name="drop_hint_bitrate">视频默认比特率</string>
+
+    <string name="toast_title">屏幕录像已完成</string>
+
+</resources>

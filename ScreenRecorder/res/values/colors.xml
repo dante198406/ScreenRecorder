@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Copyright (c) 2016
+    zhangzhaolei@erobbing.com
+-->
+
+<resources>
+    <!-- color of squarepregress -->
+    <color name="squareprogress_color">#FF21FF1C</color>
+</resources>

@@ -1,0 +1,9 @@
+<!--
+    Copyright (c) 2016
+    zhangzhaolei@erobbing.com
+-->
+
+<resources>
+    <!-- width of squareprogress -->
+    <integer name="config_squareprogress_width">4</integer>
+</resources>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Copyright (c) 2016
+    zhangzhaolei@erobbing.com
+-->
+
+<resources>
+    <string-array name="time">
+        <item>30</item>
+        <item>60</item>
+        <item>90</item>
+        <item>120</item>
+        <item>150</item>
+        <item>180</item>
+    </string-array>
+    <string-array name="size">
+        <item>240x320</item>
+        <item>320x480</item>
+        <item>480x800</item>
+        <item>540x960</item>
+        <item>720x1280</item>
+        <item>1080x1920</item>
+    </string-array>
+    <string-array name="bitrate">
+        <item>16000</item>
+        <item>128000</item>
+        <item>6000000</item>
+        <item>15000000</item>
+        <item>40000000</item>
+    </string-array>
+</resources>
