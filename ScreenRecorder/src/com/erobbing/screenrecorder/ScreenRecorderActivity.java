@@ -40,6 +40,8 @@ import android.graphics.Paint.Align;
 import java.math.BigDecimal;
 import java.lang.reflect.Method;
 import java.io.File;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Created by zhangzhaolei on 2016/11/24.
@@ -78,6 +80,7 @@ public class ScreenRecorderActivity extends Activity {
                 Toast.makeText(ScreenRecorderActivity.this, R.string.toast_title, Toast.LENGTH_SHORT).show();
                 finish();
             } else {
+                squareProgressBar.setImage(R.drawable.btn_bg_normal);
                 squareProgressBar.setProgress(pregress * rate);
                 squareProgressBar.setEnabled(false);
                 mStopHandler.postDelayed(mStopRunnable, 1000);
@@ -242,14 +245,21 @@ public class ScreenRecorderActivity extends Activity {
         squareProgressBar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                StartRecording(dropTime.getText().toString(), dropSize.getText().toString(), dropBitrate.getText().toString(), mSavePath);
-                boolean isFullTime = "".equals(dropTime.getText().toString());
-                mSeconds = isFullTime ? 180 : Integer.parseInt(dropTime.getText().toString());
-                rate = ArithmeticUtil.div((double) 100, (double) mSeconds, 2);
-                mStopHandler.postDelayed(mStopRunnable, 1000);
-                squareProgressBar.setProgress(0);
-                squareProgressBar.setEnabled(false);
-                Log.d(TAG, "Recording time=" + mSeconds + "savePath=" + mSavePath);
+                boolean isTimeMatch = isTime(dropTime.getText().toString());
+                boolean isScreenSizeMatch = isScreenSize(dropSize.getText().toString());
+                boolean isBitrateMatch = isBitrate(dropBitrate.getText().toString());
+                if (isTimeMatch && isScreenSizeMatch && isBitrateMatch) {
+                    StartRecording(dropTime.getText().toString(), dropSize.getText().toString(), dropBitrate.getText().toString(), mSavePath);
+                    boolean isFullTime = "".equals(dropTime.getText().toString());
+                    mSeconds = isFullTime ? 180 : Integer.parseInt(dropTime.getText().toString());
+                    rate = ArithmeticUtil.div((double) 100, (double) mSeconds, 2);
+                    mStopHandler.postDelayed(mStopRunnable, 1000);
+                    squareProgressBar.setProgress(0);
+                    squareProgressBar.setEnabled(false);
+                    Log.d(TAG, "Recording time=" + mSeconds + "savePath=" + mSavePath);
+                } else {
+                    Toast.makeText(ScreenRecorderActivity.this, R.string.toast_error, Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }
@@ -272,9 +282,36 @@ public class ScreenRecorderActivity extends Activity {
     }
 
     @Override
+    public boolean onKeyUp(int keyCode, KeyEvent event) {
+        switch (keyCode) {
+            case KeyEvent.KEYCODE_BACK:
+                moveTaskToBack(false);
+                return true;
+            case KeyEvent.KEYCODE_DPAD_CENTER:
+                squareProgressBar.setImage(R.drawable.btn_bg_normal);
+                break;
+            case KeyEvent.KEYCODE_DPAD_UP:
+            case KeyEvent.KEYCODE_DPAD_DOWN:
+            case KeyEvent.KEYCODE_DPAD_LEFT:
+            case KeyEvent.KEYCODE_DPAD_RIGHT:
+                if (squareProgressBar.isFocused()) {
+                    squareProgressBar.setImage(R.drawable.btn_bg_focused);
+                } else {
+                    squareProgressBar.setImage(R.drawable.btn_bg_normal);
+                }
+                break;
+        }
+        return super.onKeyUp(keyCode, event);
+    }
+
+    @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
             moveTaskToBack(false);
+            return true;
+        }
+        if (keyCode == KeyEvent.KEYCODE_DPAD_CENTER) {
+            squareProgressBar.setImage(R.drawable.btn_bg_pressed);
             return true;
         }
         return super.onKeyDown(keyCode, event);
@@ -331,5 +368,38 @@ public class ScreenRecorderActivity extends Activity {
             e.printStackTrace();
         }
         return ret;
+    }
+
+    public boolean isTime(String time) {
+        if ((!"".equals(time)) && (null != time)) {
+            String reg = "\\d{1,3}";
+            Pattern pattern = Pattern.compile(reg);
+            Matcher matcher = pattern.matcher(time);
+            boolean match = matcher.matches();
+            return match ? (180 >= Integer.parseInt(time)) : false;
+        }
+        return true;
+    }
+
+    public boolean isScreenSize(String size) {
+        if ((!"".equals(size)) && (null != size)) {
+            String reg = "\\d{1,4}[x]{1}\\d{1,4}";
+            Pattern pattern = Pattern.compile(reg);
+            Matcher matcher = pattern.matcher(size);
+            boolean match = matcher.matches();
+            return match;
+        }
+        return true;
+    }
+
+    public boolean isBitrate(String bitrate) {
+        if ((!"".equals(bitrate)) && (null != bitrate)) {
+            String reg = "\\d{1,9}";
+            Pattern pattern = Pattern.compile(reg);
+            Matcher matcher = pattern.matcher(bitrate);
+            boolean match = matcher.matches();
+            return match;
+        }
+        return true;
     }
 }

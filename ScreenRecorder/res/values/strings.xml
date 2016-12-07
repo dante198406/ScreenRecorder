@@ -14,11 +14,12 @@
     <string name="title_path">Save path</string>
     <string name="title_path_detail">Sdcard</string>
 
-    <string name="drop_hint_time">Default 180 seconds</string>
+    <string name="drop_hint_time">Default 180 seconds,max 180s</string>
     <string name="drop_hint_size">Default screen size</string>
     <string name="drop_hint_bitrate">Default video bitrate</string>
 
     <string name="toast_title">Screen recording complete</string>
+    <string name="toast_error">Input error</string>
 
     <string name="description">That&amp;apos;s the image to draw the progressbar around.</string>
 </resources>

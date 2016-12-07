@@ -80,7 +80,8 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:gravity="center_horizontal"
-        android:paddingTop="20dp">
+        android:paddingTop="20dp"
+        android:focusable="true">
     </com.erobbing.squareprogressbar.SquareProgressBar>
 
 </LinearLayout>

@@ -102,7 +102,6 @@ public class SquareProgressBar extends RelativeLayout {
      * Sets the image scale type according to {@link ScaleType}.
      *
      * @param scale the image ScaleType
-     * @author thiagokimo
      * @since 1.3.0
      */
     public void setImageScaleType(ScaleType scale) {
